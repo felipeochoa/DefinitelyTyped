@@ -7,9 +7,6 @@ on:
   pull_request:
     branches:
       - master
-  schedule:
-    # 12PM UTC -> 4AM Pacific
-    - cron: '0 12 * * *'
   workflow_dispatch:
 
 permissions:
@@ -24,7 +21,7 @@ concurrency:
 jobs:
   setup-matrix:
     runs-on: ubuntu-latest
-    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    if: github.repository == 'felipeochoa/DefinitelyTyped'
 
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
@@ -54,7 +51,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    if: github.repository == 'felipeochoa/DefinitelyTyped'
     needs: setup-matrix
 
     strategy:
@@ -126,7 +123,7 @@ jobs:
 
   dangerbot:
     runs-on: ubuntu-latest
-    if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
+    if: github.repository == 'felipeochoa/DefinitelyTyped' && github.event_name == 'pull_request'
 
     needs:
       - test
@@ -159,7 +156,7 @@ jobs:
 
   scripts:
     runs-on: ubuntu-latest
-    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    if: github.repository == 'felipeochoa/DefinitelyTyped'
 
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
